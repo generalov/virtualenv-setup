@@ -4,19 +4,19 @@ This tool could help you to create new isolated Python environment.
 Status and License
 ------------------
 
-It is written by Evgeny Generalov, and sponsored by the, damn!.. nothing. It is
+It is written by Evgeny Generalov, and sponsored by the, damn!.. nobody. It is
 licensed under an `MIT-style permissive license`_.
 
 
 Usage
 -----
 
-The easiest way to create virtualenv is open a terminal and type::
+The easiest way to create virtualenv to open a terminal and type::
    
    python -murllib https://github.com/generalov/virtualenv-setup/raw/master/ve_setup.py | python
    . ./python/bin/activate
 
-You can pass any option to the virtualenv_::
+You can pass any virtualenv_ option::
 
    python -murllib https://github.com/generalov/virtualenv-setup/raw/master/ve_setup.py \
       | python - --no-site-packages .venv
@@ -25,7 +25,7 @@ Common usage pattern::
 
    Usage: ve_setup.py [options] [[virtualenv options] DEST_DIR]
 
-The `DEST_DIR` being suplied must be the latest argument. I'm stupid here.
+If you provide `DEST_DIR` argument it must be the latest one. I'm stupid here.
 
 
 Win32
@@ -56,8 +56,8 @@ isolated Python environment with your arguments in the given directory (named
 Using ve_setup 
 --------------
 
-If you want to use virutalenv in your script, just put ``ve_setup.py`` into the
-any directory at the ``PYTHONPATH``, and add this to the top::
+If you want to use virutalenv in your script, just put ``ve_setup.py`` into any
+directory on the ``PYTHONPATH``, and add this to the top::
 
     import os, ve_setup
     dest_dir = os.path.join(os.path.dirname(__file__), 'python')
