@@ -13,12 +13,12 @@ Usage
 
 The easiest way to create virtualenv to open a terminal and type::
    
-   python -murllib https://github.com/generalov/virtualenv-setup/raw/master/ve_setup.py | python
+   python -murllib http://tiny.cc/ve-setup | python
    . ./python/bin/activate
 
-You can pass any virtualenv_ option::
+You can address It by full URL or pass any virtualenv_ option::
 
-   python -murllib https://github.com/generalov/virtualenv-setup/raw/master/ve_setup.py \
+   python -murllib https://github.com/generalov/virtualenv-setup/raw/1.0/ve_setup.py \
       | python - --no-site-packages .venv
 
 Common usage pattern::
