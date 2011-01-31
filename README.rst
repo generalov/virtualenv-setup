@@ -23,10 +23,7 @@ You can address It by full URL or pass any virtualenv_ option::
 
 Common usage pattern::
 
-   Usage: ve_setup.py [options] [[virtualenv options] DEST_DIR]
-
-If you provide `DEST_DIR` argument it must be the latest one. I'm stupid here.
-
+   Usage: ve_setup.py [[virtualenv options] DEST_DIR]
 
 Win32
 ^^^^^
@@ -61,7 +58,7 @@ directory on the ``PYTHONPATH``, and add this to the top::
 
     import os, ve_setup
     dest_dir = os.path.join(os.path.dirname(__file__), 'python')
-    ve_setup.use_virtualenv([dest_dir])
+    ve_setup.use_virtualenv([dest_dir], activate=True)
 
 This will create virtualenv if needed and activate it.
 

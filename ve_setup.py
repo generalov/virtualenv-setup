@@ -32,7 +32,7 @@ if 'PYTHONHOME' in os.environ:
     print "WARNING: ignoring the value of the PYTHONHOME environment " \
           " variable! This value can corrupt the virtual python installation."
 
-def use_virtualenv(argv, version=VIRTUALENV_VERSION, activate=True):
+def use_virtualenv(argv, version=VIRTUALENV_VERSION, activate=False):
     """Install and use virtualenv environment."""
 
     virtualenv = VirtualEnv(argv, version=version)
@@ -142,21 +142,13 @@ class EZSetupInstaller(object):
 
 if __name__ == '__main__':
     import traceback
-    from optparse import OptionParser
 
     def main():
         """Main function."""
 
-        usage = "usage: %prog [options] [[virtualenv options] DEST_DIR]"
-        parser = OptionParser(usage=usage)
-        parser.disable_interspersed_args()
-        parser.add_option("--version", default=VIRTUALENV_VERSION,
-                dest="version",
-                help="virtualenv version. "
-                "Default is '%s'." % VIRTUALENV_VERSION)
-        (options, args) = parser.parse_args()
-        version = options.version
-        use_virtualenv(args or VIRTUALENV_ARGS, version)
+        version = VIRTUALENV_VERSION
+        args = sys.argv[1:] if len(sys.argv) > 1 else VIRTUALENV_ARGS
+        use_virtualenv(args, version)
 
     try:
         main()
