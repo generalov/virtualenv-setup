@@ -56,11 +56,17 @@ Using ve_setup
 If you want to use virutalenv in your script, just put ``ve_setup.py`` into any
 directory on the ``PYTHONPATH``, and add this to the top::
 
-    import os, ve_setup
-    dest_dir = os.path.join(os.path.dirname(__file__), 'python')
-    ve_setup.use_virtualenv([dest_dir], activate=True)
+    #!/usr/bin/env python
+    try:
+        from ve_setup import use_virtualenv
+    except ImportError:
+        import urllib
+        urllib.retrive("http://tiny.cc/ve-setup", 've_setup.py')
+        from ve_setup import use_virtualenv
 
-This will create virtualenv if needed and activate it.
+    use_virtualenv(['--distribute', "python"], requirements="requirements.pip")
+
+This will create virtualenv if needed, install requirements and activate it.
 
 
 .. _ez_setup.py: http://peak.telecommunity.com/dist/ez_setup.py

@@ -32,10 +32,16 @@ if 'PYTHONHOME' in os.environ:
     print "WARNING: ignoring the value of the PYTHONHOME environment " \
           " variable! This value can corrupt the virtual python installation."
 
-def use_virtualenv(argv, version=VIRTUALENV_VERSION, activate=False):
+def use_virtualenv(argv, version=VIRTUALENV_VERSION, activate=True,
+        requirements=None):
     """Install and use virtualenv environment."""
 
     virtualenv = VirtualEnv(argv, version=version)
+    if not virtualenv.is_installed:
+        virtualenv.install()
+        if requirements:
+            pip_exe = os.path.join(virtualenv.scripts_dir, "pip")
+            subprocess.Popen([pip_exe, "install", "-r", requirements]).communicate()[0]
     if activate:
         virtualenv.activate()
     return virtualenv
@@ -54,8 +60,6 @@ class VirtualEnv(object):
         self.version = version or VIRTUALENV_VERSION
         self.path = os.path.abspath(argv[-1])
         self.argv = argv
-        if not self.is_installed:
-            self.install()
 
     @property
     def scripts_dir(self):
