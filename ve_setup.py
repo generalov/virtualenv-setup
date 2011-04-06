@@ -21,7 +21,7 @@ import urllib
 
 
 # Defaults
-VIRTUALENV_VERSION = '1.5.1'
+VIRTUALENV_VERSION = '1.6'
 VIRTUALENV_ARGS = ['python']
 
 #
