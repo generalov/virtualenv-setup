@@ -37,11 +37,10 @@ def use_virtualenv(argv, version=VIRTUALENV_VERSION, activate=True,
     """Install and use virtualenv environment."""
 
     virtualenv = VirtualEnv(argv, version=version)
-    if not virtualenv.is_installed:
-        virtualenv.install()
+    if not virtualenv.is_exists:
+        virtualenv.create()
         if requirements:
-            pip_exe = os.path.join(virtualenv.scripts_dir, "pip")
-            subprocess.Popen([pip_exe, "install", "-r", requirements]).communicate()[0]
+            virtualenv.install_requirements(requirements)
     if activate:
         virtualenv.activate()
     return virtualenv
@@ -69,7 +68,7 @@ class VirtualEnv(object):
                 else 'bin')
 
     @property
-    def is_installed(self):
+    def is_exists(self):
         """Check this environment is installed."""
 
         return os.path.isfile(os.path.join(self.scripts_dir, self.python_name))
@@ -81,8 +80,8 @@ class VirtualEnv(object):
         return 'VIRTUAL_ENV' in os.environ and \
                 os.environ['VIRTUAL_ENV'] == self.path
 
-    def install(self):
-        """Install this environment."""
+    def create(self):
+        """Create this environment."""
 
         tmpdir = tempfile.mkdtemp()
         virtualenv_requirement = 'virtualenv==%s' % self.version
@@ -108,6 +107,13 @@ class VirtualEnv(object):
         if not self.scripts_dir in os.getenv('PATH', ''):
             os.environ['PATH'] = os.pathsep.join(
                     [self.scripts_dir, os.getenv('PATH', '')])
+
+    def install_requirements(self, requirements, extra_pip_args=None):
+        """Install requirements from the `requirements` file."""
+
+        pip_exe = os.path.join(self.scripts_dir, "pip")
+        cmd = [pip_exe, "install", "-r", requirements] + (extra_pip_args or [])
+        out = subprocess.Popen(cmd).communicate()
 
 
 class EZSetupInstaller(object):
