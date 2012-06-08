@@ -136,7 +136,7 @@ class EZSetupInstaller(object):
         env = os.environ.copy()
         env['PYTHONPATH'] = self.install_dir
         ez_setup_cmd = [sys.executable, self.ez_setup_py,
-                '-q', '--editable', '--build-directory',  self.install_dir,
+                '-q', '--upgrade', '--editable', '--build-directory',  self.install_dir,
                 requirement]
         log("download %s with %s" % (requirement, " ".join(ez_setup_cmd)))
         subprocess.call(ez_setup_cmd, env=env)
